@@ -1,12 +1,18 @@
+const argv = require('yargs')
+  .usage('Usage: $0 <command> [options]')
+  .help('h')
+  .alias('h', 'help')
+  .describe('port', 'port number for the server')
+  .describe('schema_file_path', 'Path to the graphql schema')
+  .example("node $0 --schema_file_path '../awb-fake2/schema.graphql' --port 3006")
+  .argv;
 const express = require('express');
 const bodyParser = require('body-parser');
 const { graphqlExpress, graphiqlExpress } = require('apollo-server-express');
 const { makeExecutableSchema, addMockFunctionsToSchema } = require('graphql-tools');
-const util = require('util')
 const { importSchema } = require('graphql-import')
-const schema = importSchema('../awb-fake2/schema.graphql')
+const schema = importSchema(argv.schema_file_path)
 const MockList = require('graphql-tools').MockList;
-const mockServer = require('graphql-tools').mockServer;
 
 // console.log(util.inspect(schema))
 const resolvers = {
@@ -43,7 +49,7 @@ app.use('/graphql', bodyParser.json(), graphqlExpress({ schema: schemaServer }))
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
 // Start the server
-app.listen(3006, "0.0.0.0", () => {
-  console.log('Go to http://localhost:3000/graphiql to run queries!');
+app.listen(argv.port || 3000, "0.0.0.0", () => {
+  console.log(`Go to http://localhost:${argv.port}/graphiql to run queries!`);
+  console.log(`http://localhost:${argv.port}/graphql is the graphql endpoint!`);
 });
-

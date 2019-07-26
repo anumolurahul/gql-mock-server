@@ -14,6 +14,7 @@
     "express": "^4.17.1",
     "graphql": "^14.4.2",
     "graphql-import": "^0.7.1",
-    "graphql-tools": "^4.0.5"
+    "graphql-tools": "^4.0.5",
+    "yargs": "^13.3.0"
   }
 }
