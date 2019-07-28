@@ -77,7 +77,6 @@ app.use(
 )
 
 app.get("/relationship_manager_users/validate_token", cors(), (req, res) => {
-  console.log("INSIDE HEREE")
   res.send({ success: true })
 })
 
