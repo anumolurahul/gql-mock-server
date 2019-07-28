@@ -71,12 +71,11 @@ app.use("*", cors(), (req, res, next) => {
 // The GraphQL endpoint
 app.use(
   "/reporting/graphql",
-  cors(),
   bodyParser.json(),
   graphqlExpress({ schema: schemaServer })
 )
 
-app.get("/relationship_manager_users/validate_token", cors(), (req, res) => {
+app.get("/relationship_manager_users/validate_token", (req, res) => {
   res.send({ success: true })
 })
 
